@@ -1,5 +1,5 @@
 import ExpenseCategory from './ExpenseCategory';
-import ExpenseType from './ExpenseTypeType';
+import ExpenseType from './ExpenseType';
 
 export default interface Expense {
   id: string;
@@ -7,6 +7,6 @@ export default interface Expense {
   description: string;
   amount: number;
   date: Date;
-  category: ExpenseCategory;
-  type: ExpenseType;
+  category: string;
+  type: string;
 }

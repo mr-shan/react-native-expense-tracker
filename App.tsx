@@ -20,9 +20,10 @@ const NavigationTabs = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: COLORS.gray700 },
+        headerStyle: { backgroundColor: COLORS.gray900 },
         headerTintColor: COLORS.primary500,
-        tabBarStyle: { backgroundColor: COLORS.gray700 },
+        headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
+        tabBarStyle: { backgroundColor: COLORS.gray900 },
         tabBarActiveTintColor: COLORS.primary500,
         tabBarShowLabel: false
       }}
@@ -31,7 +32,7 @@ const NavigationTabs = () => {
         name='ExpenseHome'
         component={ExpenseHome}
         options={{
-          title: 'Expense Home',
+          title: 'Home',
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='home' color={color} size={size} />
@@ -42,7 +43,7 @@ const NavigationTabs = () => {
         name='AllExpenses' 
         component={AllExpenses} 
         options={{
-          title: 'All Expenses',
+          title: 'Expenses',
           tabBarLabel: 'All',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='wallet' color={color} size={size} />
