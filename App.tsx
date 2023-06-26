@@ -71,7 +71,7 @@ export default function App() {
             name='ManageExpense'
             component={ManageExpense}
             options={{
-              title: 'Expenses',
+              title: 'Manage Expense',
               headerStyle: { backgroundColor: COLORS.bg900 },
               headerTintColor: COLORS.primary500,
               headerTitleStyle: { fontWeight: 'bold', fontSize: 18 }
