@@ -12,7 +12,7 @@ export default (props: IProps) => {
   const { id, name, description, amount } = props.expense;
 
   const onPressHandler = () => {
-    props.onPress(id);
+    props.onPress(props.expense);
   }
 
   return (
@@ -32,16 +32,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 14,
     borderRadius: 8,
-    backgroundColor: COLORS.gray700,
+    backgroundColor: COLORS.bg700,
     marginBottom: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderColor: COLORS.gray500,
+    borderColor: COLORS.bg500,
     borderWidth: 1,
   },
   itemText: {
-    color: COLORS.white400,
+    color: COLORS.text400,
     fontSize: 16,
     marginBottom: 4,
   },

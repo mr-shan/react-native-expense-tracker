@@ -20,6 +20,6 @@ export default (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.gray600
+    backgroundColor: COLORS.bg600
   },
 })

@@ -15,7 +15,7 @@ interface IProps {
 
 export default (props: IProps) => {
   const onExpensePressHandler = (expense: Expense) => {
-    console.log(expense);
+    props.navigation.navigate('ManageExpense', expense)
   };
 
   return (
@@ -32,11 +32,11 @@ export default (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.gray600,
+    backgroundColor: COLORS.bg600,
     paddingTop: 10,
   },
   header: {
-    backgroundColor: COLORS.gray500,
+    backgroundColor: COLORS.bg500,
     padding: 12,
     paddingVertical: 14,
     flexDirection: 'row',
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontSize: 18,
-    color: COLORS.white400,
+    color: COLORS.text400,
     fontWeight: '500'
   }
 });

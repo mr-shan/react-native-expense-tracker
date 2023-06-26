@@ -11,8 +11,8 @@ interface IProps {
 }
 
 export default (props: IProps) => {
-  const categoryItemPressHandler = (id: string) => {
-    props.onPress(id);
+  const categoryItemPressHandler = (expense: Expense) => {
+    props.onPress(expense);
   };
 
   return (

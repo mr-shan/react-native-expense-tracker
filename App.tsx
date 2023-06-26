@@ -20,12 +20,12 @@ const NavigationTabs = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: COLORS.gray900 },
+        headerStyle: { backgroundColor: COLORS.bg900 },
         headerTintColor: COLORS.primary500,
         headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
-        tabBarStyle: { backgroundColor: COLORS.gray900 },
+        tabBarStyle: { backgroundColor: COLORS.bg900 },
         tabBarActiveTintColor: COLORS.primary500,
-        tabBarShowLabel: false
+        tabBarShowLabel: false,
       }}
     >
       <BottomTabs.Screen
@@ -39,16 +39,16 @@ const NavigationTabs = () => {
           ),
         }}
       />
-      <BottomTabs.Screen 
-        name='AllExpenses' 
-        component={AllExpenses} 
+      <BottomTabs.Screen
+        name='AllExpenses'
+        component={AllExpenses}
         options={{
           title: 'Expenses',
           tabBarLabel: 'All',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='wallet' color={color} size={size} />
           ),
-        }}  
+        }}
       />
     </BottomTabs.Navigator>
   );
@@ -67,7 +67,16 @@ export default function App() {
               headerShown: false,
             }}
           />
-          <Stack.Screen name='ManageExpense' component={ManageExpense} />
+          <Stack.Screen
+            name='ManageExpense'
+            component={ManageExpense}
+            options={{
+              title: 'Expenses',
+              headerStyle: { backgroundColor: COLORS.bg900 },
+              headerTintColor: COLORS.primary500,
+              headerTitleStyle: { fontWeight: 'bold', fontSize: 18 }
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
