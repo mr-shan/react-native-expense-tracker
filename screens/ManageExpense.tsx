@@ -3,6 +3,7 @@ import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { COLORS } from '../constants/styles';
+import { MOCK_EXPENSES } from '../data/mock-expenses';
 import Expense from '../models/Expense';
 
 interface IProps {
@@ -11,9 +12,12 @@ interface IProps {
 }
 
 export default (props: IProps) => {
-  const expense = props.route.params as Expense;
-
-  console.log(props.route.params);
+  const expenseId = props.route.params || '';
+  if (!expenseId) {
+    props.navigation.replace('AllExpenses');
+    return null;
+  }
+  const expense = MOCK_EXPENSES.find(e => e.id == expenseId) as Expense;
 
   return (
     <View style={styles.container}>

@@ -1,10 +1,8 @@
 export const COLORS = {
-  primary400: '#ffdd44',
   primary500: '#ffd900',
-  primary600: '#dbb300',
   text400: '#eeeeee',
   text500: '#cccccc',
-  white600: '#aaaaaa',
+  text600: '#aaaaaa',
   bg500: '#333533',
   bg600: '#242423',
   bg700: '#141413',
@@ -13,15 +11,13 @@ export const COLORS = {
 };
 
 // export const COLORS = {
-//   primary400: '#ffdd44',
-//   primary500: '#ffd900',
-//   primary600: '#dbb300',
-//   text400: '#eeeeee',
-//   text500: '#cccccc',
-//   white600: '#aaaaaa',
-//   bg500: '#f9f9f9',
-//   bg600: '#eeeeee',
-//   bg700: '#bcbcbc',
-//   bg900: '#adadad',
-//   accent500: '#ff8c00',
+//   primary500: '#f2ce02',
+//   text400: '#333',
+//   text500: '#555',
+//   text600: '#777777',
+//   bg500: '#ddd',
+//   bg600: '#fefefe',
+//   bg700: '#eee',
+//   bg900: '#666',
+//   accent500: '#e47e00',
 // };

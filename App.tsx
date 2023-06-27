@@ -74,7 +74,8 @@ export default function App() {
               title: 'Manage Expense',
               headerStyle: { backgroundColor: COLORS.bg900 },
               headerTintColor: COLORS.primary500,
-              headerTitleStyle: { fontWeight: 'bold', fontSize: 18 }
+              headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
+              presentation: 'modal'
             }}
           />
         </Stack.Navigator>

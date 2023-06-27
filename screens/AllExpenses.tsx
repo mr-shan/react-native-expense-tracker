@@ -15,7 +15,7 @@ interface IProps {
 
 export default (props: IProps) => {
   const onExpensePressHandler = (expense: Expense) => {
-    props.navigation.navigate('ManageExpense', expense)
+    props.navigation.navigate('ManageExpense', expense.id);
   };
 
   return (
@@ -43,16 +43,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 10,
     alignItems: 'center',
-    borderRadius: 5
+    borderRadius: 5,
   },
   title: {
     fontSize: 16,
     color: COLORS.accent500,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   amount: {
     fontSize: 18,
     color: COLORS.text400,
-    fontWeight: '500'
-  }
+    fontWeight: '500',
+  },
 });

@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 
 import { COLORS } from '../../constants/styles';
 import Expense from '../../models/Expense';
 
 interface IProps {
-  expense: Expense
-  onPress: any
+  expense: Expense;
+  onPress: any;
 }
 
 export default (props: IProps) => {
@@ -13,10 +13,21 @@ export default (props: IProps) => {
 
   const onPressHandler = () => {
     props.onPress(props.expense);
-  }
+  };
+
+  const getPressableStyle = (pressed: boolean) => {
+    const pressableStyles: Array<any> = [styles.item];
+    if (pressed && Platform.OS === 'ios')
+      pressableStyles.push(styles.itemPressed);
+    return pressableStyles;
+  };
 
   return (
-    <Pressable style={styles.item} onPress={onPressHandler}>
+    <Pressable
+      style={({ pressed }) => getPressableStyle(pressed)}
+      onPress={onPressHandler}
+      android_ripple={{ color: COLORS.bg500 }}
+    >
       <View style={styles.header}>
         <Text style={styles.itemText}>{name}</Text>
         <Text style={styles.description}>{description}</Text>
@@ -40,6 +51,9 @@ const styles = StyleSheet.create({
     borderColor: COLORS.bg500,
     borderWidth: 1,
   },
+  itemPressed: {
+    opacity: 0.7,
+  },
   itemText: {
     color: COLORS.text400,
     fontSize: 16,
@@ -47,7 +61,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 12,
-    color: COLORS.white600,
+    color: COLORS.text600,
   },
   amount: {
     color: COLORS.accent500,
