@@ -37,7 +37,7 @@ const NavigationTabs = () => {
           title: 'Home',
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name='home' color={color} size={size} />
+            <Ionicons name='home' color={color} size={size + 2} />
           ),
         }}
       />
@@ -55,7 +55,7 @@ const NavigationTabs = () => {
           title: 'Expenses',
           tabBarLabel: 'All',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name='wallet' color={color} size={size} />
+            <Ionicons name='wallet' color={color} size={size + 2} />
           ),
         }}
       />
