@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { COLORS } from '../constants/styles';
 import { MOCK_EXPENSES } from '../data/mock-expenses';
 import Expense from '../models/Expense';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 interface IProps {
   route: RouteProp<any>;
@@ -12,11 +13,29 @@ interface IProps {
 }
 
 export default (props: IProps) => {
-  const expenseId = props.route.params || '';
+  const [expenseId, setExpenseId] = useState('');
+
+  useEffect(() => {
+    const id = props.route.params || '';
+    setExpenseId(id);
+  }, [props.route.params, props.navigation]);
+
+  useLayoutEffect(() => {
+    props.navigation.setOptions({
+      title: expenseId ? 'Manage Expense' : 'Add New'
+    })
+  }, [expenseId]);
+
   if (!expenseId) {
-    props.navigation.replace('AllExpenses');
-    return null;
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text>Add new Expense here...</Text>
+        </View>
+      </View>
+    )
   }
+
   const expense = MOCK_EXPENSES.find(e => e.id == expenseId) as Expense;
 
   return (

@@ -10,6 +10,8 @@ import { Ionicons } from '@expo/vector-icons';
 import ExpenseHome from './screens/ExpenseHome';
 import AllExpenses from './screens/AllExpenses';
 import ManageExpense from './screens/ManageExpense';
+import AddExpenseButton from './components/ui/AddExpenseButton';
+import DummyScreen from './screens/DummyScreen';
 
 import { COLORS } from './constants/styles';
 
@@ -37,6 +39,13 @@ const NavigationTabs = () => {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='home' color={color} size={size} />
           ),
+        }}
+      />
+      <BottomTabs.Screen
+        name='AddNewExpense'
+        component={DummyScreen}
+        options={{
+          tabBarIcon: () => <AddExpenseButton />
         }}
       />
       <BottomTabs.Screen
@@ -75,7 +84,7 @@ export default function App() {
               headerStyle: { backgroundColor: COLORS.bg900 },
               headerTintColor: COLORS.primary500,
               headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
-              presentation: 'modal'
+              presentation: 'modal',
             }}
           />
         </Stack.Navigator>
