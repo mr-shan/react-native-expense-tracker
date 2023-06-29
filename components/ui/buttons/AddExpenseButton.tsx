@@ -2,13 +2,13 @@ import { Pressable, StyleSheet, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-import { COLORS } from '../../constants/styles';
+import { COLORS } from '../../../constants/styles';
 
 export default () => {
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate('ManageExpense', '');
+    navigation.navigate('ManageExpense');
   };
 
   const getPressableStyle = (pressed: boolean) => {

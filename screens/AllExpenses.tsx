@@ -6,7 +6,7 @@ import { COLORS } from '../constants/styles';
 import { MOCK_EXPENSES, EXPENSE_CATEGORIES } from '../data/mock-expenses';
 import Expense from '../models/Expense';
 
-import ExpenseList from '../components/expense-list/ExpenseList';
+import ExpenseList from '../components/expenseList/ExpenseList';
 
 interface IProps {
   route: RouteProp<any>;

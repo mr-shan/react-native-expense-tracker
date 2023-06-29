@@ -6,8 +6,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { COLORS } from '../constants/styles';
 import { MOCK_EXPENSES } from '../data/mock-expenses';
 import Expense from '../models/Expense';
-import ExpenseDetails from '../components/manage-expense/ExpenseDetails';
-import AddNewExpense from '../components/manage-expense/AddNewExpense';
+import ExpenseDetails from './../components/manageExpense/ExpenseDetails';
+import AddNewExpense from '../components/manageExpense/AddNewExpense';
+import ExpenseFooter from '../components/manageExpense/ExpenseFooter';
 
 interface IProps {
   route: RouteProp<any>;
@@ -28,22 +29,28 @@ export default (props: IProps) => {
     });
   }, [expenseId]);
 
-  const addNewExpenseHandler = (expense: Expense) => {
-    console.log("Nnew expense added")
-  }
+  const onSubmitHandler = (expense: Expense) => {
+    console.log('New expense added');
+    props.navigation.goBack();
+  };
+
+  const onCancelHandler = () => {
+    props.navigation.goBack();
+  };
 
   let Component = null;
 
   if (expenseId) {
     const expense = MOCK_EXPENSES.find((e) => e.id == expenseId) as Expense;
-    Component = <ExpenseDetails expense={expense}/>
+    Component = <ExpenseDetails expense={expense} />;
   } else {
-    Component = <AddNewExpense onSubmit={addNewExpenseHandler}/>
+    Component = <AddNewExpense />;
   }
 
   return (
     <View style={styles.container}>
-      { Component }
+      {Component}
+      <ExpenseFooter onCancel={onCancelHandler} onSubmit={onSubmitHandler}/>
     </View>
   );
 };
@@ -53,5 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.bg600,
     paddingTop: 10,
+    justifyContent: 'space-between'
   }
 });

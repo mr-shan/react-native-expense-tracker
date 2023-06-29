@@ -1,23 +1,23 @@
 import { View, Text, StyleSheet } from 'react-native';
 
 import { COLORS } from '../../constants/styles';
-import Expense from '../../models/Expense';
 
 interface IProps {
-  expense: Expense;
 }
 
-export default ({ expense }: IProps) => {
+export default (props: IProps) => {
   return (
-    <View style={styles.expenseDetailsWrapper}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{expense.name}</Text>
-        <Text style={styles.amount}>$ {expense.amount}</Text>
-      </View>
+      <View style={styles.expenseDetailsWrapper}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Expense name</Text>
+          <Text style={styles.amount}>$ Amount</Text>
+        </View>
 
-      <Text style={styles.text}>{expense.date.toDateString()}</Text>
-      <Text style={styles.text}>{expense.description}</Text>
-    </View>
+        <Text style={styles.text}>Date</Text>
+        <Text style={styles.text}>Description</Text>
+        <Text style={styles.text}>Category</Text>
+        <Text style={styles.text}>Type</Text>
+      </View>
   );
 };
 
@@ -52,5 +52,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingHorizontal: 12,
     paddingVertical: 5,
-  },
+  }
 });

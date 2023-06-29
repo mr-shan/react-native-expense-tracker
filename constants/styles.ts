@@ -1,5 +1,6 @@
 export const COLORS = {
   primary500: '#ffd900',
+  text100: '#111111',
   text400: '#eeeeee',
   text500: '#cccccc',
   text600: '#aaaaaa',
@@ -12,6 +13,7 @@ export const COLORS = {
 
 // export const COLORS = {
 //   primary500: '#ffd900',
+//   text100: '#111111',
 //   text400: '#333',
 //   text500: '#555',
 //   text600: '#777777',

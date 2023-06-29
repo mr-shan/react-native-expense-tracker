@@ -4,26 +4,28 @@ import { COLORS } from '../../constants/styles';
 import Expense from '../../models/Expense';
 
 interface IProps {
-  onSubmit: any;
+  expense: Expense
 }
 
-export default ({ onSubmit }: IProps) => {
+export default ({ expense }: IProps) => {
   return (
     <View style={styles.expenseDetailsWrapper}>
       <View style={styles.header}>
-        <Text style={styles.title}>Expense name</Text>
-        <Text style={styles.amount}>$ Amount</Text>
+        <Text style={styles.title}>{expense.name}</Text>
+        <Text style={styles.amount}>$ {expense.amount}</Text>
       </View>
 
-      <Text style={styles.text}>Date</Text>
-      <Text style={styles.text}>Description</Text>
-      <Text style={styles.text}>Category</Text>
-      <Text style={styles.text}>Type</Text>
+      <Text style={styles.text}>{expense.date.toDateString()}</Text>
+      <Text style={styles.text}>{expense.description}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
   expenseDetailsWrapper: {
     backgroundColor: COLORS.bg500,
     marginHorizontal: 10,

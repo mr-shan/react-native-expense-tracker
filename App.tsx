@@ -10,7 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import ExpenseHome from './screens/ExpenseHome';
 import AllExpenses from './screens/AllExpenses';
 import ManageExpense from './screens/ManageExpense';
-import AddExpenseButton from './components/ui/AddExpenseButton';
+import AddExpenseButton from './components/ui/buttons/AddExpenseButton';
 import DummyScreen from './screens/DummyScreen';
 
 import { COLORS } from './constants/styles';
