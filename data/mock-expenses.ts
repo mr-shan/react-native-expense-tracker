@@ -45,6 +45,11 @@ export const EXPENSE_CATEGORIES: Array<ExpenseCategory> = [
     name: 'Fuel',
     description: 'Fuel for bike and car'
   },
+  {
+    id: 'expc4',
+    name: 'Food',
+    description: 'Food thing'
+  },
 ]
 
 export const MOCK_EXPENSES: Array<Expense> = [
@@ -82,6 +87,24 @@ export const MOCK_EXPENSES: Array<Expense> = [
     amount: 10.99,
     date: new Date('2023-04-23'),
     category: 'expc3',
+    type: 'ext1',
+  },
+  {
+    id: 'e5',
+    name: 'Dinner',
+    description: 'Dinner at a rooftop hotel',
+    amount: 150,
+    date: new Date('2023-06-21'),
+    category: 'expc4',
+    type: 'ext2',
+  },
+  {
+    id: 'e6',
+    name: 'Test',
+    description: 'Testing testing 123, testing testing 123',
+    amount: 20,
+    date: new Date('2023-02-21'),
+    category: 'expc1',
     type: 'ext1',
   },
 ]

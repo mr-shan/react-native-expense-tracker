@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux'
+import { StyleSheet } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -14,6 +15,8 @@ import AddExpenseButton from './components/ui/buttons/AddExpenseButton';
 import DummyScreen from './screens/DummyScreen';
 
 import { COLORS } from './constants/styles';
+
+import { store } from './store/store';
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -65,7 +68,7 @@ const NavigationTabs = () => {
 
 export default function App() {
   return (
-    <>
+    <Provider store={store}>
       <StatusBar style='light' />
       <NavigationContainer>
         <Stack.Navigator>
@@ -89,7 +92,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </Provider>
   );
 }
 

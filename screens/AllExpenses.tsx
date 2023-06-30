@@ -1,12 +1,17 @@
+import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+
+import { RootState } from '../store/store';
+import { totalExpenseSelector } from '../store/slices/expenseSlice';
+
 import { COLORS } from '../constants/styles';
-import { MOCK_EXPENSES, EXPENSE_CATEGORIES } from '../data/mock-expenses';
 import Expense from '../models/Expense';
 
 import ExpenseList from '../components/expenseList/ExpenseList';
+import ExpenseHeader from '../components/expenseList/ExpenseHeader';
 
 interface IProps {
   route: RouteProp<any>;
@@ -14,17 +19,17 @@ interface IProps {
 }
 
 export default (props: IProps) => {
+  const expenseList = useSelector((state: RootState) => state.expense.expenses);
+  const totalExpenses = useSelector((state: RootState) => totalExpenseSelector(state.expense));
+
   const onExpensePressHandler = (expense: Expense) => {
     props.navigation.navigate('ManageExpense', expense.id);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Total Expense for this month:</Text>
-        <Text style={styles.amount}>$ 200</Text>
-      </View>
-      <ExpenseList data={MOCK_EXPENSES} onPress={onExpensePressHandler} />
+      <ExpenseHeader totalExpense={totalExpenses}/>
+      <ExpenseList data={expenseList} onPress={onExpensePressHandler} />
     </View>
   );
 };
@@ -34,25 +39,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.bg600,
     paddingTop: 10,
-  },
-  header: {
-    backgroundColor: COLORS.bg500,
-    padding: 12,
-    paddingVertical: 14,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 10,
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  title: {
-    fontSize: 16,
-    color: COLORS.accent500,
-    fontWeight: '500',
-  },
-  amount: {
-    fontSize: 18,
-    color: COLORS.text400,
-    fontWeight: '500',
-  },
+  }
 });
