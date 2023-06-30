@@ -26,6 +26,12 @@ export default (props: IProps) => {
     props.navigation.navigate('ManageExpense', expense.id);
   };
 
+  if (expenseList.length === 0) {
+    return <View style={styles.noExpenseContainer}>
+      <Text style={styles.emptyExpenseList}>No expense found!</Text>
+    </View>
+  }
+
   return (
     <View style={styles.container}>
       <ExpenseHeader totalExpense={totalExpenses}/>
@@ -39,5 +45,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.bg600,
     paddingTop: 10,
+  },
+  noExpenseContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.bg600,
+  },
+  emptyExpenseList: {
+    color: COLORS.text400,
+    fontWeight: '500',
+    fontSize: 16
   }
 });
