@@ -23,7 +23,7 @@ export default (props: IProps) => {
   const totalExpenses = useSelector((state: RootState) => totalExpenseSelector(state.expense));
 
   const onExpensePressHandler = (expense: Expense) => {
-    props.navigation.navigate('ManageExpense', expense.id);
+    props.navigation.navigate('ExpenseDetails', expense.id);
   };
 
   if (expenseList.length === 0) {

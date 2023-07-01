@@ -13,6 +13,7 @@ import AllExpenses from './screens/AllExpenses';
 import ManageExpense from './screens/ManageExpense';
 import AddExpenseButton from './components/ui/buttons/AddExpenseButton';
 import DummyScreen from './screens/DummyScreen';
+import ExpenseDetails from './screens/ExpenseDetails';
 
 import { COLORS } from './constants/styles';
 
@@ -84,6 +85,17 @@ export default function App() {
             component={ManageExpense}
             options={{
               title: 'Manage Expense',
+              headerStyle: { backgroundColor: COLORS.bg900 },
+              headerTintColor: COLORS.primary500,
+              headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
+              presentation: 'modal',
+            }}
+          />
+          <Stack.Screen
+            name='ExpenseDetails'
+            component={ExpenseDetails}
+            options={{
+              title: 'Expense Details',
               headerStyle: { backgroundColor: COLORS.bg900 },
               headerTintColor: COLORS.primary500,
               headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },

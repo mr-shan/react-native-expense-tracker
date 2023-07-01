@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
-import AccentButton from './../ui/buttons/AccentButton';
-import AccentButtonOutlined from './../ui/buttons/AccentButtonOutlined';
+import PrimaryButtonOutlined from '../ui/buttons/PrimaryButtonOutlined';
+import PrimaryButton from '../ui/buttons/PrimaryButton';
 
 interface IProps {
   onCancel: any
@@ -10,12 +10,12 @@ interface IProps {
 export default (props: IProps) => {
   return (
     <View style={styles.container}>
-      <AccentButtonOutlined
+      <PrimaryButtonOutlined
         containerStyle={styles.button}
         label='Cancel'
         onPress={props.onCancel}
       />
-      <AccentButton
+      <PrimaryButton
         containerStyle={styles.button}
         label='Save'
         onPress={props.onSubmit}
@@ -26,13 +26,11 @@ export default (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    marginHorizontal: 32,
-    maxWidth: 280,
-    width: '100%',
-    alignSelf: 'center',
+    flexDirection:  'row',
+    justifyContent: 'space-between',
+    gap: 20
   },
   button: {
-    marginBottom: 16,
+    flex: 1
   },
 });

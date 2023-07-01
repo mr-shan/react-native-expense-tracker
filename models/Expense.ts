@@ -6,7 +6,7 @@ export default interface Expense {
   name: string;
   description: string;
   amount: number;
-  date: Date;
+  date: string;
   category: string;
   type: string;
 }
