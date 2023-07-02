@@ -32,7 +32,7 @@ export default (props: IProps) => {
             <Ionicons name='trash-bin' color={COLORS.text400} size={24} />
           </Pressable>
         ),
-        title: 'Remove',
+        title: 'Edit Expense',
       });
     } else {
       props.navigation.setOptions({
@@ -47,7 +47,7 @@ export default (props: IProps) => {
     } else if (expense) {
       dispatch(add(expense));
     }
-    props.navigation.goBack();
+    props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
   };
 
   const onRemoveExpenseHandler = () => {

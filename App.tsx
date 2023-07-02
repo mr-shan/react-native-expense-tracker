@@ -27,10 +27,10 @@ const NavigationTabs = () => {
     <BottomTabs.Navigator
       screenOptions={{
         headerStyle: { backgroundColor: COLORS.bg900 },
-        headerTintColor: COLORS.primary500,
+        headerTintColor: COLORS.text400,
         headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
         tabBarStyle: { backgroundColor: COLORS.bg900 },
-        tabBarActiveTintColor: COLORS.primary500,
+        tabBarActiveTintColor: COLORS.text400,
         tabBarShowLabel: false,
       }}
     >
@@ -74,7 +74,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name='ExpenseTabbs'
+            name='ExpenseTabs'
             component={NavigationTabs}
             options={{
               headerShown: false,
@@ -86,7 +86,7 @@ export default function App() {
             options={{
               title: 'Manage Expense',
               headerStyle: { backgroundColor: COLORS.bg900 },
-              headerTintColor: COLORS.primary500,
+              headerTintColor: COLORS.text400,
               headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
               presentation: 'modal',
             }}
@@ -97,7 +97,7 @@ export default function App() {
             options={{
               title: 'Expense Details',
               headerStyle: { backgroundColor: COLORS.bg900 },
-              headerTintColor: COLORS.primary500,
+              headerTintColor: COLORS.text400,
               headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
               presentation: 'modal',
             }}

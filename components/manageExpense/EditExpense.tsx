@@ -49,6 +49,8 @@ export default (props: IProps) => {
     }
   }, [props.data]);
 
+  const submitButtonText = props.data ? 'Save' : 'Add'
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.formContainer}>
@@ -120,7 +122,11 @@ export default (props: IProps) => {
         />
       </View>
 
-      <ExpenseFooter onCancel={onCancelHandler} onSubmit={onSubmitHandler} />
+      <ExpenseFooter
+        submitButtonLabel={submitButtonText}
+        onCancel={onCancelHandler}
+        onSubmit={onSubmitHandler}
+      />
     </ScrollView>
   );
 };

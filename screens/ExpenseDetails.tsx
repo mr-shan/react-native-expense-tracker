@@ -6,15 +6,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { Ionicons } from '@expo/vector-icons';
 
-
 import { RootState } from '../store/store';
-
 
 import { COLORS } from '../constants/styles';
 import Expense from '../models/Expense';
 
 import ExpenseFooter from '../components/manageExpense/ExpenseFooter';
-import { remove, add, update } from './../store/slices/expenseSlice';
+import { remove } from './../store/slices/expenseSlice';
 
 interface IProps {
   route: RouteProp<any>;
@@ -47,7 +45,7 @@ export default (props: IProps) => {
           <Ionicons name='trash-bin' color={COLORS.text400} size={24} />
         </Pressable>
       ),
-      title: 'Remove',
+      title: 'Manage Details',
     });
   }, []);
 
@@ -68,6 +66,7 @@ export default (props: IProps) => {
         </View>
         <View style={{ paddingHorizontal: 20 }}>
           <ExpenseFooter
+            submitButtonLabel='Edit'
             onCancel={onCancelHandler}
             onSubmit={onSubmitHandler}
           />
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     flex: 1,
     justifyContent: 'space-between',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   header: {
     flexDirection: 'row',

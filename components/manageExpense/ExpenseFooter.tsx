@@ -1,23 +1,24 @@
 import { View, StyleSheet } from 'react-native';
-import PrimaryButtonOutlined from '../ui/buttons/PrimaryButtonOutlined';
-import PrimaryButton from '../ui/buttons/PrimaryButton';
+import AccentButtonOutlined from '../ui/buttons/AccentButtonOutlined';
+import AccentButton from '../ui/buttons/AccentButton';
 
 interface IProps {
-  onCancel: any
-  onSubmit: any
+  onCancel: any;
+  onSubmit: any;
+  submitButtonLabel?: string;
 }
 
 export default (props: IProps) => {
   return (
     <View style={styles.container}>
-      <PrimaryButtonOutlined
+      <AccentButtonOutlined
         containerStyle={styles.button}
         label='Cancel'
         onPress={props.onCancel}
       />
-      <PrimaryButton
+      <AccentButton
         containerStyle={styles.button}
-        label='Save'
+        label={props.submitButtonLabel || 'Save'}
         onPress={props.onSubmit}
       />
     </View>
@@ -26,11 +27,11 @@ export default (props: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection:  'row',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 20
+    gap: 20,
   },
   button: {
-    flex: 1
+    flex: 1,
   },
 });
