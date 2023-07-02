@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Platform } from 'react-native';
+import { Pressable, StyleSheet, Platform, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,37 +12,48 @@ export default () => {
   };
 
   const getPressableStyle = (pressed: boolean) => {
-    const pressableStyles: Array<any> = [styles.container];
+    const pressableStyles: Array<any> = [styles.pressable];
     if (pressed && Platform.OS === 'ios')
       pressableStyles.push(styles.itemPressed);
     return pressableStyles;
   };
 
   return (
-    <Pressable
-      style={({ pressed }) => getPressableStyle(pressed)}
-      onPress={pressHandler}
-      android_ripple={{ color: COLORS.bg500 }}
-    >
-      <Ionicons name='add-circle' color={COLORS.accent500} size={62} />
+    <Pressable style={styles.container} onPress={() => {}}>
+      <Pressable
+        onPress={pressHandler}
+        style={({ pressed }) => getPressableStyle(pressed)}
+        android_ripple={{ color: COLORS.bg500 }}
+      >
+        <Ionicons
+          style={styles.button}
+          name='add-circle'
+          color={COLORS.accent500}
+          size={70}
+        />
+      </Pressable>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    backgroundColor: COLORS.bg600,
-    padding: 0,
-    borderRadius: 100,
-    width: 65,
-    height: 65,
-    top: -15,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 4,
+  },
+  pressable: {
+    position: 'absolute',
+    top: -20,
+    borderRadius: 50,
+    overflow: 'hidden',
   },
   itemPressed: {
     opacity: 0.7,
+  },
+  button: {
+    backgroundColor: COLORS.bg600,
+    paddingLeft: 4
   },
 });
