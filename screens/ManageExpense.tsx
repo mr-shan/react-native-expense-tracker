@@ -52,7 +52,7 @@ export default (props: IProps) => {
 
   const onRemoveExpenseHandler = () => {
     dispatch(remove(expenseId));
-    props.navigation.goBack();
+    props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
   };
 
   const onCancelHandler = () => {

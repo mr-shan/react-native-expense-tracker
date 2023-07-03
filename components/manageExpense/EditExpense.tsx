@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 
 import { COLORS } from '../../constants/styles';
 import Expense from '../../models/Expense';
 
 import Input from '../ui/Input';
 import ExpenseFooter from './ExpenseFooter';
+
+import { required } from './../../helpers/validators';
 
 interface IProps {
   data?: Expense | null;
@@ -15,18 +17,20 @@ interface IProps {
 
 export default (props: IProps) => {
   const [formData, setFormData] = useState({
-    id: Math.random().toFixed(2),
-    name: '',
-    description: '',
-    amount: '',
-    date: '',
-    category: '',
-    type: '',
+    id: { value: Math.random().toFixed(2), isValid: true, isTouched: false },
+    name: { value: '', isValid: false, isTouched: false },
+    description: { value: '', isValid: false, isTouched: false },
+    amount: { value: '', isValid: false, isTouched: false },
+    date: { value: '', isValid: false, isTouched: false },
+    category: { value: '', isValid: false, isTouched: false },
+    type: { value: '', isValid: false, isTouched: false },
   });
 
-  const inputChangeHandler = (identifier: string, text: string) => {
+  const [error, setError] = useState(false);
+
+  const inputChangeHandler = (identifier: string, text: string, isValid: boolean) => {
     setFormData((oldState) => {
-      return { ...oldState, [identifier]: text };
+      return { ...oldState, [identifier]: { value: text, isValid: isValid, isTouched: true } };
     });
   };
 
@@ -35,21 +39,38 @@ export default (props: IProps) => {
   };
 
   const onSubmitHandler = () => {
-    props.onSubmit({ ...formData, amount: parseFloat(formData.amount) || 0 });
+    const submitData: any = {};
+    let isValid = true;
+    for (let item in formData) {
+      submitData[item] = formData[item].value;
+      if (!formData[item].isValid) {
+        setError(true);
+        Alert.alert('Invalid details', 'Please complete all required details before submit');
+        return;
+      }
+    }
+    props.onSubmit({
+      ...submitData,
+      amount: parseFloat(formData.amount.value) || 0,
+    });
   };
 
   useEffect(() => {
     if (props.data) {
-      const data = {
+      const data: any = {
         ...props.data,
         amount: props.data.amount.toString(),
         date: props.data.date.toString(),
       };
-      setFormData(data);
+      const formattedData: any = {};
+      for (let item in data) {
+        formattedData[item] = { value: data[item], isValid: true };
+      }
+      setFormData(formattedData);
     }
   }, [props.data]);
 
-  const submitButtonText = props.data ? 'Save' : 'Add'
+  const submitButtonText = props.data ? 'Save' : 'Add';
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -57,8 +78,9 @@ export default (props: IProps) => {
         <Input
           label='name'
           displayName='Name'
-          value={formData.name}
+          {...formData.name}
           onChange={inputChangeHandler}
+          rules={[required]}
           containerStyle={styles.textInputWrapper}
           inputConfig={{ autoCorrect: false, maxLength: 40 }}
         />
@@ -66,16 +88,18 @@ export default (props: IProps) => {
           <Input
             label='amount'
             displayName='Amount'
-            value={formData.amount}
+            {...formData.amount}
             onChange={inputChangeHandler}
+            rules={[required]}
             containerStyle={{ ...styles.textInputWrapper, flex: 1 }}
             inputConfig={{ autoCorrect: false, keyboardType: 'decimal-pad' }}
           />
           <Input
             label='date'
             displayName='Date'
-            value={formData.date}
+            {...formData.date}
             onChange={inputChangeHandler}
+            rules={[required]}
             containerStyle={{ ...styles.textInputWrapper, flex: 1 }}
             inputConfig={{
               autoCorrect: false,
@@ -89,8 +113,9 @@ export default (props: IProps) => {
           <Input
             label='category'
             displayName='Category'
-            value={formData.category}
+            {...formData.category}
             onChange={inputChangeHandler}
+            rules={[required]}
             containerStyle={{ ...styles.textInputWrapper, flex: 1 }}
             inputConfig={{
               autoCorrect: false,
@@ -101,8 +126,9 @@ export default (props: IProps) => {
           <Input
             label='type'
             displayName='Type'
-            value={formData.type}
+            {...formData.type}
             onChange={inputChangeHandler}
+            rules={[required]}
             containerStyle={{ ...styles.textInputWrapper, flex: 1 }}
             inputConfig={{
               autoCorrect: false,
@@ -114,8 +140,9 @@ export default (props: IProps) => {
         <Input
           label='description'
           displayName='Description'
-          value={formData.description}
+          {...formData.description}
           onChange={inputChangeHandler}
+          rules={[required]}
           containerStyle={styles.textInputWrapper}
           inputConfig={{ maxLength: 80, multiline: true }}
           inputStyle={styles.multilineInput}
