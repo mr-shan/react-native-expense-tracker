@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     borderColor: COLORS.accent500,
-
   },
   text: {
     color: COLORS.accent500,

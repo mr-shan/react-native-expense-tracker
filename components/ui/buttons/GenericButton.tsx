@@ -1,16 +1,18 @@
 import { Pressable, StyleSheet, Platform, View } from 'react-native';
 
 import { COLORS } from '../../../constants/styles';
+import { FunctionComponent } from 'react';
 
 interface IProps {
   onPress?: any;
   children: React.ReactElement;
   containerStyle?: StyleSheet.AbsoluteFillStyle | {};
   androidRippleColor?: string;
-  backgroundColor: string
+  backgroundColor: string;
+  disabled?: boolean
 }
 
-export default (props: IProps) => {
+const GenericButton: FunctionComponent<IProps> = (props) => {
   const getPressableStyle = (pressed: boolean) => {
     const pressableStyles: Array<any> = [
       styles.pressable,
@@ -26,13 +28,20 @@ export default (props: IProps) => {
       <Pressable
         style={({ pressed }) => getPressableStyle(pressed)}
         onPress={props.onPress}
-        android_ripple={{ color: props.androidRippleColor || COLORS.bg500 }}
+        disabled={props.disabled}
+        android_ripple={{ color: props.androidRippleColor }}
       >
         {props.children}
       </Pressable>
     </View>
   );
 };
+
+GenericButton.defaultProps = {
+  disabled: false,
+  containerStyle: {},
+  androidRippleColor: COLORS.bg500
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -44,8 +53,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     width: '100%',
+    borderRadius: 10
   },
   itemPressed: {
     opacity: 0.7,
   },
 });
+
+export default GenericButton
