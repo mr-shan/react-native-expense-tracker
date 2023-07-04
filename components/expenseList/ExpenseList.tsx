@@ -33,5 +33,6 @@ export default (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    paddingBottom: 90
   },
 });

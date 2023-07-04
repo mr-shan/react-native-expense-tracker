@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
@@ -13,6 +13,7 @@ import Expense from '../models/Expense';
 
 import ExpenseFooter from '../components/manageExpense/ExpenseFooter';
 import { remove } from './../store/slices/expenseSlice';
+import { deleteExpense } from '../api/http';
 
 interface IProps {
   route: RouteProp<any>;
@@ -20,6 +21,8 @@ interface IProps {
 }
 
 export default (props: IProps) => {
+  const [isError, setIsError] = useState(null);
+
   const dispatch = useDispatch();
   const expenseList = useSelector((state: RootState) => state.expense.expenses);
 
@@ -33,9 +36,14 @@ export default (props: IProps) => {
     props.navigation.navigate('ManageExpense', expenseId);
   };
 
-  const onRemoveExpenseHandler = () => {
+  const onRemoveExpenseHandler = async () => {
+    const response = await deleteExpense(expenseId);
+    if (response.error) {
+      setIsError(response);
+      return;
+    }
     dispatch(remove(expenseId));
-    props.navigation.goBack();
+    props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
   };
 
   useLayoutEffect(() => {
@@ -57,12 +65,12 @@ export default (props: IProps) => {
       <View style={styles.expenseDetailsWrapper}>
         <View style={styles.detailsBody}>
           <View style={styles.header}>
-            <Text style={styles.title}>{expense.name}</Text>
-            <Text style={styles.amount}>$ {expense.amount}</Text>
+            <Text style={styles.title}>{expense?.name}</Text>
+            <Text style={styles.amount}>$ {expense?.amount}</Text>
           </View>
 
           <Text style={styles.text}>{expense?.date.toString()}</Text>
-          <Text style={styles.text}>{expense.description}</Text>
+          <Text style={styles.text}>{expense?.description}</Text>
         </View>
         <View style={{ paddingHorizontal: 20 }}>
           <ExpenseFooter

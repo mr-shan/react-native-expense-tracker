@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export default (props: IProps) => {
-  const { id, name, description, amount } = props.expense;
+  const { id, name, date, amount } = props.expense;
 
   const onPressHandler = () => {
     props.onPress(props.expense);
@@ -30,7 +30,7 @@ export default (props: IProps) => {
     >
       <View style={styles.header}>
         <Text style={styles.itemText}>{name}</Text>
-        <Text style={styles.description}>{description}</Text>
+        <Text style={styles.description}>{date}</Text>
       </View>
       <Text style={styles.amount}>$ {amount}</Text>
     </Pressable>

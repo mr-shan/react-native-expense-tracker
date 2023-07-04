@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { StyleSheet } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,8 +29,22 @@ const NavigationTabs = () => {
         headerStyle: { backgroundColor: COLORS.bg900 },
         headerTintColor: COLORS.text400,
         headerTitleStyle: { fontWeight: 'bold', fontSize: 18 },
-        tabBarStyle: { backgroundColor: COLORS.bg900 },
+        tabBarStyle: {
+          backgroundColor: COLORS.bg900,
+          position: 'absolute',
+          bottom: 18,
+          borderWidth: 0,
+          marginHorizontal: '10%',
+          borderRadius: 50,
+          height: 60,
+          padding: 0
+          
+        },
+        tabBarItemStyle: {
+          height: 60,
+        },
         tabBarActiveTintColor: COLORS.text400,
+        tabBarInactiveTintColor: COLORS.bg500,
         tabBarShowLabel: false,
       }}
     >
@@ -49,7 +63,7 @@ const NavigationTabs = () => {
         name='AddNewExpense'
         component={DummyScreen}
         options={{
-          tabBarIcon: () => <AddExpenseButton />
+          tabBarIcon: () => <AddExpenseButton />,
         }}
       />
       <BottomTabs.Screen

@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -12,6 +13,10 @@ import Expense from '../models/Expense';
 
 import ExpenseList from '../components/expenseList/ExpenseList';
 import ExpenseHeader from '../components/expenseList/ExpenseHeader';
+import LoadingOverlay from '../components/ui/LoadingOverlay';
+
+import { fetchExpenses } from '../api/http';
+import { set } from './../store/slices/expenseSlice';
 
 interface IProps {
   route: RouteProp<any>;
@@ -19,6 +24,10 @@ interface IProps {
 }
 
 export default (props: IProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
+
+  const dispatch = useDispatch();
   const expenseList = useSelector((state: RootState) => state.expense.expenses);
   const totalExpenses = useSelector((state: RootState) => totalExpenseSelector(state.expense));
 
@@ -26,7 +35,21 @@ export default (props: IProps) => {
     props.navigation.navigate('ExpenseDetails', expense.id);
   };
 
-  if (expenseList.length === 0) {
+  useEffect(() => {
+    const getExpenses = async () => {
+      const expenses = await fetchExpenses() as any;
+      if (!expenses) return;
+      if (expenses?.error) {
+        setIsError(expenses?.details)
+      } else 
+        dispatch(set(expenses));
+      setIsLoading(false);
+    }
+    setIsLoading(true)
+    getExpenses();
+  }, [])
+
+  if (expenseList.length === 0 && !isLoading) {
     return <View style={styles.noExpenseContainer}>
       <Text style={styles.emptyExpenseList}>No expense found!</Text>
     </View>
@@ -36,6 +59,7 @@ export default (props: IProps) => {
     <View style={styles.container}>
       <ExpenseHeader totalExpense={totalExpenses}/>
       <ExpenseList data={expenseList} onPress={onExpensePressHandler} />
+      {isLoading && <LoadingOverlay />}
     </View>
   );
 };

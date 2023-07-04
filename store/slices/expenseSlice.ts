@@ -2,7 +2,6 @@ import { createSlice, current } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import Expense from '../../models/Expense';
-import { MOCK_EXPENSES } from '../../data/mock-expenses';
 
 interface IExpenseState {
   expenses: Array<Expense>;
@@ -14,7 +13,7 @@ type updateExpenseObject = {
 };
 
 const initialState: IExpenseState = {
-  expenses: MOCK_EXPENSES,
+  expenses: [],
 };
 
 export const expenseSlice = createSlice({
@@ -22,7 +21,7 @@ export const expenseSlice = createSlice({
   name: 'expenses',
   reducers: {
     add: (state, action: PayloadAction<Expense>) => {
-      state.expenses.push(action.payload);
+      state.expenses.splice(0, 0, action.payload);
     },
     remove: (state, action: PayloadAction<string>) => {
       if (!action.payload) return;
@@ -30,17 +29,23 @@ export const expenseSlice = createSlice({
     },
     update: (state, action: PayloadAction<updateExpenseObject>) => {
       const index = state.expenses.findIndex((e) => e.id === action.payload.id);
-      if (!index) return;
+      
+      if (index < 0) return;
 
-      state.expenses[index] = {
+      const newObj = {
         ...state.expenses[index],
         ...action.payload.data,
-      };
+      }
+
+      state.expenses[index] = newObj
     },
     getExpenseTotal: (state) => {
       const totalSum = state.expenses.reduce((previous, current) => {
         return previous + current.amount
       }, 0)
+    },
+    set: (state, action: PayloadAction<Array<Expense>>) => {
+      state.expenses = action.payload
     }
   }
 });
@@ -49,6 +54,5 @@ export const totalExpenseSelector = (state: IExpenseState) => {
   return state.expenses.reduce((prev, curr) => prev + curr.amount, 0).toFixed(2);
 }
 
-
-export const { add, remove, update } = expenseSlice.actions;
+export const { add, remove, update, set } = expenseSlice.actions;
 export default expenseSlice.reducer;

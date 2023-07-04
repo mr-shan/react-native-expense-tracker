@@ -29,7 +29,7 @@ export default () => {
           style={styles.button}
           name='add-circle'
           color={COLORS.accent500}
-          size={70}
+          size={80}
         />
       </Pressable>
     </Pressable>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   pressable: {
     position: 'absolute',
-    top: -20,
+    top: -14,
     borderRadius: 50,
     overflow: 'hidden',
   },

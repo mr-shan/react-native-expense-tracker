@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet, Pressable } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
@@ -10,8 +10,10 @@ import { RootState } from '../store/store';
 import { COLORS } from '../constants/styles';
 import Expense from '../models/Expense';
 import EditExpense from '../components/manageExpense/EditExpense';
+import LoadingOverlay from '../components/ui/LoadingOverlay';
 
 import { remove, add, update } from './../store/slices/expenseSlice';
+import { addExpense, updateExpense, deleteExpense } from '../api/http';
 
 interface IProps {
   route: RouteProp<any>;
@@ -19,6 +21,8 @@ interface IProps {
 }
 
 export default (props: IProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
   const dispatch = useDispatch();
   const expenseList = useSelector((state: RootState) => state.expense.expenses);
 
@@ -41,16 +45,52 @@ export default (props: IProps) => {
     }
   }, [props.route.params, props.navigation]);
 
-  const onSubmitHandler = (expense: Expense) => {
+  const onSubmitHandler = async (expense: Expense) => {
     if (expenseId && expense) {
-      dispatch(update({ id: expenseId, data: expense }));
+      const response = updateExistingExpense(expenseId, expense);
+      if (response) {
+        dispatch(update({ id: expenseId, data: expense }));
+        props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
+      }
     } else if (expense) {
-      dispatch(add(expense));
+      const id = await addNewExpense(expense) as string | null;
+      if (id) {
+        dispatch(add({...expense, id: id }));
+        props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
+      }
     }
-    props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
   };
 
-  const onRemoveExpenseHandler = () => {
+  const addNewExpense = async (expense: Expense) => {
+    setIsLoading(true);
+    const response = await addExpense(expense);
+    setIsLoading(false);
+    if (response.error) {
+      setIsError(response);
+      return null;
+    } else {
+      return response
+    }
+  }
+
+  const updateExistingExpense = async (id: string, expense: Expense) => {
+    setIsLoading(true);
+    const response = await updateExpense(id, expense);
+    setIsLoading(false);
+    if (response?.error) {
+      setIsError(response);
+      return false;
+    } else {
+      return true
+    }
+  }
+
+  const onRemoveExpenseHandler = async () => {
+    const response = await deleteExpense(expenseId);
+    if (response.error) {
+      setIsError(response);
+      return;
+    }
     dispatch(remove(expenseId));
     props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
   };
@@ -73,6 +113,7 @@ export default (props: IProps) => {
         onCancel={onCancelHandler}
         onSubmit={onSubmitHandler}
       />
+      {isLoading && <LoadingOverlay />}
     </View>
   );
 };
