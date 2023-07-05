@@ -11,6 +11,7 @@ import { COLORS } from '../constants/styles';
 import Expense from '../models/Expense';
 import EditExpense from '../components/manageExpense/EditExpense';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
+import ErrorOverlay from '../components/ui/ErrorOverlay';
 
 import { remove, add, update } from './../store/slices/expenseSlice';
 import { addExpense, updateExpense, deleteExpense } from '../api/http';
@@ -47,7 +48,7 @@ export default (props: IProps) => {
 
   const onSubmitHandler = async (expense: Expense) => {
     if (expenseId && expense) {
-      const response = updateExistingExpense(expenseId, expense);
+      const response = await updateExistingExpense(expenseId, expense);
       if (response) {
         dispatch(update({ id: expenseId, data: expense }));
         props.navigation.navigate('ExpenseTabs', { screen: 'AllExpenses' });
@@ -86,7 +87,9 @@ export default (props: IProps) => {
   }
 
   const onRemoveExpenseHandler = async () => {
+    setIsLoading(true);
     const response = await deleteExpense(expenseId);
+    setIsLoading(false);
     if (response.error) {
       setIsError(response);
       return;
@@ -114,6 +117,7 @@ export default (props: IProps) => {
         onSubmit={onSubmitHandler}
       />
       {isLoading && <LoadingOverlay />}
+      {isError && <ErrorOverlay message='Failed to fetch expenses' onClose={() => setIsError(null)}/>}
     </View>
   );
 };

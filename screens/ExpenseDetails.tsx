@@ -12,7 +12,11 @@ import { COLORS } from '../constants/styles';
 import Expense from '../models/Expense';
 
 import ExpenseFooter from '../components/manageExpense/ExpenseFooter';
+import LoadingOverlay from '../components/ui/LoadingOverlay';
+import ErrorOverlay from '../components/ui/ErrorOverlay';
+
 import { remove } from './../store/slices/expenseSlice';
+
 import { deleteExpense } from '../api/http';
 
 interface IProps {
@@ -22,6 +26,7 @@ interface IProps {
 
 export default (props: IProps) => {
   const [isError, setIsError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   const expenseList = useSelector((state: RootState) => state.expense.expenses);
@@ -37,7 +42,9 @@ export default (props: IProps) => {
   };
 
   const onRemoveExpenseHandler = async () => {
+    setIsLoading(true);
     const response = await deleteExpense(expenseId);
+    setIsLoading(false);
     if (response.error) {
       setIsError(response);
       return;
@@ -80,6 +87,8 @@ export default (props: IProps) => {
           />
         </View>
       </View>
+      {isLoading && <LoadingOverlay />}
+      {isError && <ErrorOverlay message='Failed to fetch expenses' onClose={() => setIsError(null)}/>}
     </View>
   );
 };

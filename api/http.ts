@@ -7,7 +7,7 @@ interface IError {
   details: any
 }
 
-const BASE_URL = '';
+const BASE_URL = ''
 
 export const addExpense = async (expense: Expense): Promise<string | IError | undefined> => {
   try {
@@ -39,7 +39,7 @@ export const fetchExpenses = async (): Promise<Expense[] | IError | undefined> =
 
 export const updateExpense = async (id: string, data: Expense): Promise<object | IError | undefined> => {
   try {
-    const response = axios.put(`${BASE_URL}/expenses/${id}.json`, { ...data, id: null });
+    const response = await axios.put(`${BASE_URL}/expenses/${id}.json`, { ...data, id: null });
     return response.data;
   } catch (error) {
     return { error: true, details: error }
@@ -48,7 +48,7 @@ export const updateExpense = async (id: string, data: Expense): Promise<object |
 
 export const deleteExpense = async (id: string): Promise<boolean | IError | undefined> => {
   try {
-    axios.delete(`${BASE_URL}/expenses/${id}.json`);
+    await axios.delete(`${BASE_URL}/expenses/${id}.json`);
     return true
   } catch (error) {
     return { error: true, details: error }

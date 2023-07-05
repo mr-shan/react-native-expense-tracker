@@ -14,6 +14,7 @@ import Expense from '../models/Expense';
 import ExpenseList from '../components/expenseList/ExpenseList';
 import ExpenseHeader from '../components/expenseList/ExpenseHeader';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
+import ErrorOverlay from '../components/ui/ErrorOverlay';
 
 import { fetchExpenses } from '../api/http';
 import { set } from './../store/slices/expenseSlice';
@@ -60,6 +61,7 @@ export default (props: IProps) => {
       <ExpenseHeader totalExpense={totalExpenses}/>
       <ExpenseList data={expenseList} onPress={onExpensePressHandler} />
       {isLoading && <LoadingOverlay />}
+      {isError && <ErrorOverlay message='Failed to fetch expenses' onClose={() => setIsError(null)}/>}
     </View>
   );
 };
