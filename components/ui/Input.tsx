@@ -35,7 +35,7 @@ export default (props: IProps) => {
     props.onChange(props.label, event, isValid);
   };
 
-  const behavior = Platform.OS === 'ios' ? 'padding' : 'height';
+  const behavior = Platform.OS === 'ios' ? 'height' : 'height';
 
   const showError = !props.isValid && props.isTouched;
 
